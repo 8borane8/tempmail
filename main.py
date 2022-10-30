@@ -1,14 +1,17 @@
 import requests
 
 def getApiUrl():
-    return "https://www.1secmail.com/api/v1"
+    return "https://www.1secmail.com/api/v1/"
 
 class TempMail:
     def __init__(self):
         self.refreshMail()
 
     def refreshMail(self):
-        self.mail = requests.get(getApiUrl() + "?action=genRandomMailbox&count=1").json()[0]
+        self.mail = requests.get(getApiUrl() + "?action=genRandomMailbox&count=10").json()[0]
+
+    def setMail(self, mail):
+        self.mail = mail
 
     def getAllMessages(self):
         return requests.get(getApiUrl() + "?action=getMessages&login="+self.mail.split("@")[0]+"&domain="+self.mail.split("@")[1]).json()
